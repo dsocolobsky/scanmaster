@@ -2,8 +2,8 @@ import React from 'react';
 import './App.css';
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 
-import Landing from './components/Landing';
-import Host from './components/Host';
+import Landing from './pages/Landing';
+import Host from './pages/Host';
 
 function App() {
   return (
