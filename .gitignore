@@ -1,3 +1,6 @@
+testlist
+*.sqlite
+
 # Created by https://www.toptal.com/developers/gitignore/api/linux,python,flask,react
 # Edit at https://www.toptal.com/developers/gitignore?templates=linux,python,flask,react
 
