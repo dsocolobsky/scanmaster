@@ -1,17 +1,16 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <ul>
+{% extends "base.html" %}
+{% block title %}Index{% endblock %}
+
+{% block content %}
+<h2 class="title">Hosts</h2>
+
+<ul>
+    {{ url_for('static', filename="style.css")}}
     {% for host in hosts %}
     <li>
-        {{ host }}
+        {% include 'hostcard.html' %}
     </li>
     {% endfor %}
 </ul>
-</body>
-</html>
+
+{% endblock %}

@@ -1,0 +1,29 @@
+<div class="box">
+    <article class="media">
+        <div class="media-left">
+            <figure class="image is-64x64">
+                <img src="https://bulma.io/images/placeholders/128x128.png" alt="Image">
+            </figure>
+        </div>
+        <div class="media-content">
+            <div class="content">
+                <p>
+                    <strong>{{ host.ip }}</strong> <small>({{ host.ip }})</small>
+                    <small>{{ host.isup }}</small>
+                    <br>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean efficitur sit
+                    amet massa fringilla egestas. Nullam condimentum luctus turpis.
+                </p>
+            </div>
+            <nav class="level is-mobile">
+                <div class="level-left">
+
+                    {% for port in host.ports %}
+                    <a class="level-item" href="{{ host.ip }}">{{port}}</a>
+                    {% endfor %}
+
+                </div>
+            </nav>
+        </div>
+    </article>
+</div>
