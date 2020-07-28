@@ -1,12 +1,14 @@
-from api import app
+from web import app
 from random import randint
 import time
-import api.database as db
-import api.scripts
+import web.database as db
+import web.scripts
+from flask import render_template
 
 @app.route('/')
 def index():
-    return 'API INDEX'
+    hosts = db.hosts()
+    return render_template('index.html', hosts=hosts)
 
 @app.route('/hosts')
 def ips():
@@ -24,4 +26,4 @@ def isup(ip):
 
 @app.route('/rebuild')
 def rebuild():
-    api.scripts.rebuild()
+    web.scripts.rebuild()
