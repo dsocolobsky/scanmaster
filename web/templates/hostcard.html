@@ -8,11 +8,26 @@
         <div class="media-content">
             <div class="content">
                 <p>
-                    <strong>{{ host.ip }}</strong> <small>({{ host.ip }})</small>
-                    <small>{{ host.isup }}</small>
+                    <a href="{{ url_for('host', ip=host.ip)  }}"><strong>{{ host.ip }}</strong></a>
+                    <small>({{ host.ip }})</small>
+                    <small><span class="icon">
+                        
+                        {% if host.isup is none %}
+                            <i class="fas fa-question"></i>
+                        {% elif host.isup %}
+                            <i class="fas fa-plug"></i>
+                        {% else %}
+                            <i class="fas fa-plus-square"></i>
+                        {% endif %}
+
+                    </span></small>
+
+                    <small>
+                        <button>Ping</button>
+                    </small>
+
                     <br>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean efficitur sit
-                    amet massa fringilla egestas. Nullam condimentum luctus turpis.
+                    {{ host }}
                 </p>
             </div>
             <nav class="level is-mobile">

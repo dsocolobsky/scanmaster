@@ -10,10 +10,10 @@ def index():
     hosts = db.hosts()
     return render_template('index.html', hosts=hosts)
 
-@app.route('/hosts')
-def ips():
-    hosts = db.hosts()
-    return {'hosts': hosts}
+@app.route('/host/<ip>')
+def host(ip):
+    host = db.host_by_ip(ip)
+    return render_template('host.html', host=host)
 
 @app.route('/test')
 def test():

@@ -5,7 +5,6 @@
 <h2 class="title">Hosts</h2>
 
 <ul>
-    {{ url_for('static', filename="style.css")}}
     {% for host in hosts %}
     <li>
         {% include 'hostcard.html' %}
