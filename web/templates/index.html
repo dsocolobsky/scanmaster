@@ -3,6 +3,7 @@
 
 {% block content %}
 <h2 class="title">Hosts</h2>
+<h4 id="loading" style="display: none;">Loading...</h4>
 
 <ul>
     {% for host in hosts %}
@@ -14,14 +15,18 @@
 
 <script>
     function doPing(ip) {
+        $('#loading').show();
         $.post("/ping/"+ip, function(data) {
             console.log(data);
+            $('#loading').hide();
         });
     }
 
     function doNmap(ip) {
+        $('#loading').show();
         $.post("/nmap/"+ip, function(data) {
             console.log(data);
+            $('#loading').hide();
         });
     }
     

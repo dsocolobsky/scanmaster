@@ -127,6 +127,7 @@ def service_from_port_info(info, host, service=None):
 def host_info_to_db(info):
     print("host info to DB")
     host = Host[info.ip]
+    host.isup = True # Since we just scanned host must be up
     host.os = info.os
     host.os_acc = info.os_acc
 
@@ -154,15 +155,19 @@ def nmap(ip, fast):
     print(f'nmapping {ip}, fast={fast}')
     arg = '-F' if fast else None
     fname = f'nmap_out/{ip}.xml'
+
     print("Running nmap")
     subprocess.run(['sudo', 'nmap', arg, '-A', '-sV', '--version-intensity', '5', ip, '-oX', fname],
         stdout=subprocess.DEVNULL)
     print("Ran NMAP")
+
     #fname = '190.122.144.191.xml'
     info = parse_nmap_xml(fname, ip)
     print("Parsed XML")
     if info is None:
         print("Info was none")
+        host.isup = False
+        orm.commit()
         return False
 
     host_info_to_db(info)
