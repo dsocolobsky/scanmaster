@@ -12,4 +12,20 @@
     {% endfor %}
 </ul>
 
+<script>
+    function doPing(ip) {
+        $.post("/ping/"+ip, function(data) {
+            console.log(data);
+        });
+    }
+
+    function doNmap(ip) {
+        $.post("/nmap/"+ip, function(data) {
+            console.log(data);
+        });
+    }
+    
+</script>
+
 {% endblock %}
+

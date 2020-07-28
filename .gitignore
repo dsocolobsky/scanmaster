@@ -1,3 +1,4 @@
+nmap_out/
 testlist
 *.sqlite
 

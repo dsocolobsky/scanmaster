@@ -23,7 +23,11 @@
                     </span></small>
 
                     <small>
-                        <button>Ping</button>
+                    <button onclick="doPing('{{ host.ip }}')">Ping</button>
+                    </small>
+
+                    <small>
+                    <button onclick="doNmap('{{ host.ip }}')">Nmap</button>
                     </small>
 
                     <br>

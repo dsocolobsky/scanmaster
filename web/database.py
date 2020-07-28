@@ -44,3 +44,8 @@ def host_by_ip(ip):
         found = None
     
     return found
+
+@orm.db_session
+def host_setprop(host, prop, val):
+    host[prop] = val
+    orm.commit()
