@@ -38,7 +38,7 @@ def scans_to_db(scans):
             found = Host[ip]
         except orm.ObjectNotFound:
             print('None')
-            h = Host(ip=ip, ports=[port])
+            h = Host(ip=ip, name=ip, ports=[port])
             s = Service(port=port, hasPicture=False, host=h)
         else:
             print('Existed')
@@ -149,7 +149,7 @@ def nmap(ip, fast):
     host = host_by_ip(ip)
     if host is None:
         print("ip was none")
-        host = Host(ip=ip, ports=[])
+        host = Host(ip=ip, name=ip, ports=[]) # TODO create create_host in db as wrapper
         orm.commit()
 
     print(f'nmapping {ip}, fast={fast}')

@@ -3,7 +3,7 @@ from random import randint
 import time
 import web.database as db
 import web.scripts
-from flask import render_template, redirect, url_for
+from flask import render_template, redirect, url_for, request
 from pony import orm
 
 @app.route('/')
@@ -38,6 +38,16 @@ def nmap(ip):
     s = 'okay' if res else 'error'
     print(s)
     return s
+
+@app.route('/host/<ip>/change/name', methods=['POST'])
+def changename(ip):
+    name = request.form['name']
+    if name is None:
+        print("name was none")
+        return "name was none"
+
+    db.change_host_name(ip, name)
+    return "okay"
 
 @app.route('/rebuild')
 def rebuild():

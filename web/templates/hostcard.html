@@ -8,7 +8,12 @@
         <div class="media-content">
             <div class="content">
                 <p>
-                    <a href="{{ url_for('host', ip=host.ip)  }}"><strong>{{ host.ip }}</strong></a>
+                    <a href="{{ url_for('host', ip=host.ip)  }}"><strong id="{{host.ip}}::name">{{ host.name }}</strong></a>
+
+                    <small>
+                    <button onclick="makeNameEditable('{{ host.ip }}')"><i class="fas fa-edit"></i></button>
+                    </small>
+
                     <small>({{ host.ip }})</small>
                     <small>
                         

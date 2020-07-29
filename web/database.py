@@ -6,6 +6,7 @@ db.bind(provider='sqlite', filename='database.sqlite', create_db=True)
 
 class Host(db.Entity):
     ip = orm.PrimaryKey(str)
+    name = orm.Optional(str)
     isup = orm.Optional(bool)
     os = orm.Optional(str)
     os_acc = orm.Optional(int)
@@ -45,7 +46,12 @@ def host_by_ip(ip):
     
     return found
 
-@orm.db_session
+
 def host_setprop(host, prop, val):
     host[prop] = val
+    orm.commit()
+
+def change_host_name(ip, name):
+    host = Host[ip]
+    host.name = name
     orm.commit()
