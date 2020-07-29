@@ -23,7 +23,6 @@ def test():
 @orm.db_session
 @app.route('/ping/<ip>', methods=['POST'])
 def ping(ip):
-    return {'whatever': "yesyes"}
     host = db.Host[ip]
     res = web.scripts.ping_ip(ip)
 

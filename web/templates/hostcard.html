@@ -1,4 +1,4 @@
-<div class="box">
+<div class="box hostcard">
     <article class="media">
         <div class="media-left">
             <figure class="image is-64x64">
@@ -10,17 +10,23 @@
                 <p>
                     <a href="{{ url_for('host', ip=host.ip)  }}"><strong>{{ host.ip }}</strong></a>
                     <small>({{ host.ip }})</small>
-                    <small><span class="icon">
+                    <small>
+                        
                         
                         {% if host.isup is none %}
+                        <span class="icon">
                             <i class="fas fa-question"></i>
+                        </span>
                         {% elif host.isup %}
+                        <span class="icon has-text-success">
                             <i class="fas fa-plug"></i>
+                        </span>
                         {% else %}
-                            <i class="fas fa-plus-square"></i>
+                        <span class="icon has-text-danger">
+                            <i class="fas fa-plug"></i>
+                        </span>
                         {% endif %}
-
-                    </span></small>
+                    </small>
 
                     <small>
                     <button onclick="doPing('{{ host.ip }}')">Ping</button>
@@ -34,6 +40,7 @@
                     {{ host }}
                 </p>
             </div>
+            <small>Open ports:</small>
             <nav class="level is-mobile">
                 <div class="level-left">
 
