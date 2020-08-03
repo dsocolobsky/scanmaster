@@ -3,6 +3,7 @@ import subprocess
 from pony import orm
 from .database import Host, Service, db, host_by_ip
 import xml.etree.ElementTree as ET
+from datetime import datetime as dt
 
 
 def parse_list(path):
@@ -42,7 +43,9 @@ def scans_to_db(scans):
             found = Host[ip]
         except orm.ObjectNotFound:
             print("None")
-            h = Host(ip=ip, name=ip, ports=[port])
+            h = Host(
+                ip=ip, name=ip, ports=[port], initial_scan=dt.now(), last_scan=dt.now()
+            )
             s = Service(port=port, hasPicture=False, host=h)
         else:
             print("Existed")

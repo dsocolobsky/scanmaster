@@ -4,12 +4,13 @@ import web.database as db
 import web.scripts
 from flask import render_template, redirect, url_for, request
 from pony import orm
+from datetime import datetime as dt
 
 
 @app.route("/")
 def index():
     hosts = db.hosts()
-    return render_template("index.html", hosts=hosts)
+    return render_template("index.html", hosts=hosts, now=dt.now())
 
 
 @app.route("/host/<ip>")
@@ -30,6 +31,7 @@ def ping(ip):
     res = web.scripts.ping_ip(ip)
 
     h.isup = res
+    h.last_scan = dt.now()
     orm.commit()
 
     return {"up": res}
@@ -37,8 +39,13 @@ def ping(ip):
 
 @app.route("/nmap/<ip>", methods=["POST"])
 def nmap(ip):
+    h = db.Host[ip]
     res = web.scripts.nmap(ip, fast=True)
+
     s = "okay" if res else "error"
+    h.isup = res
+    orm.commit()
+
     print(s)
     return s
 

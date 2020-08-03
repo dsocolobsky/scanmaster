@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from pony import orm
 
 db = orm.Database()
@@ -13,6 +15,9 @@ class Host(db.Entity):
     os_acc = orm.Optional(int)
     ports = orm.Optional(orm.IntArray)
     services = orm.Set("Service")
+    initial_scan = orm.Optional(datetime)
+    last_scan = orm.Optional(datetime)
+    notes = orm.Optional(orm.LongStr)
 
 
 class Service(db.Entity):
@@ -21,6 +26,7 @@ class Service(db.Entity):
     fingerprint = orm.Optional(str)
     name = orm.Optional(str)
     hasPicture = orm.Required(bool)
+    picture = orm.Optional(bytes)
     host = orm.Required(Host)
 
 

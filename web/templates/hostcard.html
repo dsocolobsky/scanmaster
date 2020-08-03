@@ -41,8 +41,16 @@
                     <button onclick="doNmap('{{ host.ip }}')">Nmap</button>
                     </small>
 
+                    <small>
+                        <p>Last Scan: {{ moment(host.last_scan).fromTime(now) }}</p>
+                    </small>
+
                     <br>
-                    {{ host }}
+                    {% if host.os %}
+                    <p>OS: {{ host.os }} - {{ host.os_acc }}%</p>
+                    {% else %}
+                    <p>OS: Unknown</p>
+                    {% endif %}
                 </p>
             </div>
             <small>Open ports:</small>
