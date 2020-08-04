@@ -66,14 +66,9 @@
                 <div class="level-left">
 
                     <div class="table-container">
-                    <table class="table">
+                    <table class="table is-narrow is-fullwidth">
                     <thead>
-                    <tr>
-                        <th>Port</th>
-                        <th>Service</th>
-                    </tr>
-                    </thead>
-                    <tbody>
+                        <tr>
                         {% for service in host.services %}
                             {% if service.name and service.name|length %}
                                 {% set displayedname = service.name %}
@@ -82,13 +77,31 @@
                                 {% set displayedname = 'Unknown' %}
                                 {% set protocol = 'http' %}
                             {% endif %}
-                            <tr>
-                                <td><a class="level-item"
+                                <th>
+                                    <a class="level-item"
                                        href="{{protocol}}://{{ host.ip }}:{{service.port}}">{{service.port}}
-                                </a></td>
-                                <td>{{ displayedname }}</td>
-                            </tr>
-                    {% endfor %}
+                                    </a>
+                                </th>
+                        {% endfor %}
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                            {% for service in host.services %}
+
+                            {% if service.name and service.name|length %}
+                                {% set displayedname = service.name %}
+                                {% set protocol = service.name %}
+                            {% else %}
+                                {% set displayedname = 'Unknown' %}
+                                {% set protocol = 'http' %}
+                            {% endif %}
+                                <td>
+                                    {{ displayedname }}
+                                </td>
+
+                        {% endfor %}
+                        </tr>
                     </tbody>
                     </table>
                     </div>
