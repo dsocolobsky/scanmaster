@@ -61,12 +61,41 @@
                     {% endif %}
                 </p>
             </div>
-            <small>Open ports:</small>
+
             <nav class="level is-mobile">
                 <div class="level-left">
 
+                    <div class="table-container">
+                    <table class="table">
+                    <thead>
+                    <tr>
+                        <th>Port</th>
+                        <th>Service</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        {% for service in host.services %}
+                            {% if service.name and service.name|length %}
+                                {% set displayedname = service.name %}
+                                {% set protocol = service.name %}
+                            {% else %}
+                                {% set displayedname = 'Unknown' %}
+                                {% set protocol = 'http' %}
+                            {% endif %}
+                            <tr>
+                                <td><a class="level-item"
+                                       href="{{protocol}}://{{ host.ip }}:{{service.port}}">{{service.port}}
+                                </a></td>
+                                <td>{{ displayedname }}</td>
+                            </tr>
+                    {% endfor %}
+                    </tbody>
+                    </table>
+                    </div>
+
+
                     {% for port in host.ports %}
-                    <a class="level-item" href="http://{{ host.ip }}:{{port}}">{{port}}</a>
+
                     {% endfor %}
 
                 </div>
