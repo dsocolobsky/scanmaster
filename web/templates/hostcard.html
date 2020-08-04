@@ -42,6 +42,10 @@
                     </small>
 
                     <small>
+                    <button onclick="doScreenshot('{{ host.ip }}')">Screenshot</button>
+                    </small>
+
+                    <small>
                         <p>Last Scan: {{ moment(host.last_scan).fromTime(now) }}</p>
                     </small>
 
@@ -51,6 +55,10 @@
                     {% else %}
                     <p>OS: Unknown</p>
                     {% endif %}
+
+                    {% if host.notes and host.notes|length %}
+                    <textarea class="textarea" readonly>{{ host.notes }}</textarea>
+                    {% endif %}
                 </p>
             </div>
             <small>Open ports:</small>
@@ -58,7 +66,7 @@
                 <div class="level-left">
 
                     {% for port in host.ports %}
-                    <a class="level-item" href="{{ host.ip }}">{{port}}</a>
+                    <a class="level-item" href="http://{{ host.ip }}:{{port}}">{{port}}</a>
                     {% endfor %}
 
                 </div>

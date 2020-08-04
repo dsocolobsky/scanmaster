@@ -26,7 +26,7 @@ class Service(db.Entity):
     fingerprint = orm.Optional(str)
     name = orm.Optional(str)
     hasPicture = orm.Required(bool)
-    picture = orm.Optional(bytes)
+    picture = orm.Optional(orm.LongStr)
     host = orm.Required(Host)
 
 

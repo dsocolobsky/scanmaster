@@ -32,6 +32,15 @@
         });
     }
 
+    function doScreenshot(ip) {
+        $('#loading').show();
+        $.post("/screenshot/"+ip, function(data) {
+            console.log(data);
+            $('#loading').hide();
+            location.reload();
+        });
+    }
+
     function changeName(ip, newname) {
         $('#loading').show();
         $.post("/host/"+ip+"/change/name", {name: newname}, function (data) {

@@ -5,6 +5,15 @@
 <h2 class="title">{{ host.name }}</h2>
 <h3>({{ host.ip }})</h3>
 
-{{ host }}
+    {% for srv in host.services %}
+        {% set service = srv.to_dict() %}
+        {{ service }}
+
+        {% if srv.hasPicture %}
+            <img src="data:image/jpeg;base64,{{ srv.picture | safe }}">
+        {% else %}
+            <p>No picture</p>
+        {% endif %}
+    {% endfor %}
 
 {% endblock %}
