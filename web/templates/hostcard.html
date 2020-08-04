@@ -8,16 +8,9 @@
         <div class="media-content">
             <div class="content">
                 <p>
-                    <a href="{{ url_for('host', ip=host.ip)  }}"><strong id="{{host.ip}}::name">{{ host.name }}</strong></a>
+                    <a href="{{ url_for('host', ip=host.ip)  }}"><strong>{{ host.name }}</strong></a>
 
                     <small>
-                    <button onclick="makeNameEditable('{{ host.ip }}')"><i class="fas fa-edit"></i></button>
-                    </small>
-
-                    <small>({{ host.ip }})</small>
-                    <small>
-                        
-                        
                         {% if host.isup is none %}
                         <span class="icon">
                             <i class="fas fa-question"></i>
@@ -34,20 +27,27 @@
                     </small>
 
                     <small>
-                    <button onclick="doPing('{{ host.ip }}')">Ping</button>
+                    <button title="ping" class="button is-small" onclick="doPing('{{ host.ip }}')">
+                        <i class="fas fa-satellite-dish"></i>
+                    </button>
                     </small>
 
                     <small>
-                    <button onclick="doNmap('{{ host.ip }}')">Nmap</button>
+                    <button title="nmap" class="button is-small" onclick="doNmap('{{ host.ip }}')">
+                        <i class="fas fa-eye"></i>
+                    </button>
                     </small>
 
                     <small>
-                    <button onclick="doScreenshot('{{ host.ip }}')">Screenshot</button>
+                    <button class="button is-small" title="screenshot" onclick="doScreenshot('{{ host.ip }}')">
+                        <i class="fas fa-camera"></i>
+                    </button>
                     </small>
 
-                    <small>
-                        <p>Last Scan: {{ moment(host.last_scan).fromTime(now) }}</p>
-                    </small>
+                    <p>
+                        <small>({{ host.ip }})</small>
+                        <small>Last Scan: {{ moment(host.last_scan).fromTime(now) }}</small>
+                    </p>
 
                     <br>
                     {% if host.os %}

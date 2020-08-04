@@ -20,6 +20,7 @@ def host(ip):
     return render_template(
         "host.html",
         host=h.to_dict(with_collections=True, related_objects=True, with_lazy=True),
+        now=dt.now(),
     )
 
 
