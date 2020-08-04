@@ -128,7 +128,11 @@ def service_from_port_info(info, host, service=None):
     print(f"SERVINFO: {service.name}, {service.protocol}")
     service.port = info.port
     service.protocol = info.protocol
+
     service.name = info.service
+    if service.name == "http-alt":
+        service.name = "http"
+
     service.fingerprint = info.fingerprint
     service.hasPicture = False
     service.host = host
