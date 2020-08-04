@@ -18,7 +18,8 @@ def index():
 def host(ip):
     h = db.host_by_ip(ip)
     return render_template(
-        "host.html", host=h.to_dict(with_collections=True, related_objects=True)
+        "host.html",
+        host=h.to_dict(with_collections=True, related_objects=True, with_lazy=True),
     )
 
 
@@ -67,6 +68,14 @@ def changename(ip):
 @app.route("/screenshot/<ip>", methods=["POST"])
 def screenshot(ip):
     scs.screenshot_single_host(ip)
+    return "okay"
+
+
+@app.route("/notes/<ip>", methods=["POST"])
+def post_notes(ip):
+    h = db.Host[ip]
+    h.notes = request.form["notes"]
+    orm.commit()
     return "okay"
 
 

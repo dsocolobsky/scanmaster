@@ -2,18 +2,76 @@
 {% block title %}{{ host.name }}{% endblock %}
 
 {% block content %}
-<h2 class="title">{{ host.name }}</h2>
-<h3>({{ host.ip }})</h3>
 
-    {% for srv in host.services %}
-        {% set service = srv.to_dict() %}
-        {{ service }}
+<section class="section">
+    <div class="container">
+        <div class="level">
+            <div class="level-left">
+                <h4 id="loading" style="display: none;">Loading...</h4>
+                <div class="level-item"><h2 class="title">{{ host.name }}</h2></div>
+                <div class="level-item">({{ host.ip }})</div>
+            </div>
+        </div>
+    </div>
+</section>
 
-        {% if srv.hasPicture %}
-            <img src="data:image/jpeg;base64,{{ srv.picture | safe }}">
-        {% else %}
-            <p>No picture</p>
-        {% endif %}
-    {% endfor %}
+<section class="section">
+    <div class="container">
+        <h2 class="subtitle">Notes</h2>
+        <button id="notes_button">Save</button>
+        <textarea id="notes_textarea" class="textarea is-small">{{ host.notes }}</textarea>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container">
+        <h2 class="subtitle">Services</h2>
+
+        {% for srv in host.services %}
+            <article class="media">
+          <figure class="media-left">
+            <p class="image is-128x128">
+                {% if srv.hasPicture %}
+                    <img src="data:image/jpeg;base64,{{ srv.picture | safe }}">
+                {% else %}
+                    <img src="https://bulma.io/images/placeholders/128x128.png">
+                {% endif %}
+            </p>
+          </figure>
+          <div class="media-content">
+            <div class="content">
+              <p>
+                  <a href="{{srv.name}}://{{host.ip}}:{{srv.port}}">{{ srv.port }}</a> <small>{{ srv.name }}</small>
+                <br>
+
+                      {% if srv.fingerprint %}
+                          <textarea class="textarea is-small" readonly>{{ srv.fingerprint }}</textarea>
+                      {% else %}
+                          <textarea class="textarea is-small" cols="10" readonly>No Fingerprint</textarea>
+                      {% endif %}
+              </p>
+            </div>
+          </div>
+        </article>
+
+        {% endfor %}
+    </div>
+</section>
+
+    <script>
+    $("#notes_button").click(function ()  {
+        $('#loading').show();
+        console.log("Saving notes");
+        let ip = '{{ host.ip }}';
+        let notescontent = $('#notes_textarea').val();
+        console.log(notescontent);
+        $.post("/notes/"+ip, {notes: notescontent}, function(data) {
+            console.log(data);
+            $('#loading').hide();
+            console.log("Done");
+            location.reload();
+        });
+    });
+</script>
 
 {% endblock %}

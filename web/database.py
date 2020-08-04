@@ -37,7 +37,7 @@ db.generate_mapping(create_tables=True)
 def hosts():
     hosts = []
     for h in Host.select():
-        hosts.append(h.to_dict())
+        hosts.append(h.to_dict(with_lazy=True))
     return hosts
 
 
